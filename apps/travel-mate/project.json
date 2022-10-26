@@ -1,0 +1,85 @@
+{
+  "name": "travel-mate",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/travel-mate/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/travel-mate",
+        "index": "apps/travel-mate/src/index.html",
+        "baseHref": "/",
+        "main": "apps/travel-mate/src/main.tsx",
+        "polyfills": "apps/travel-mate/src/polyfills.ts",
+        "tsConfig": "apps/travel-mate/tsconfig.app.json",
+        "assets": [
+          "apps/travel-mate/src/favicon.ico",
+          "apps/travel-mate/src/assets"
+        ],
+        "styles": ["apps/travel-mate/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/travel-mate/src/environments/environment.ts",
+              "with": "apps/travel-mate/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "travel-mate:build",
+        "hmr": true,
+        "proxyConfig": "apps/travel-mate/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "travel-mate:build:development"
+        },
+        "production": {
+          "buildTarget": "travel-mate:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/travel-mate/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/travel-mate/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
