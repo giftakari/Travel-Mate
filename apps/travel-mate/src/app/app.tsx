@@ -8,17 +8,19 @@ export const App = () => {
     fetch('/api')
       .then((r) => r.json())
       .then(setMessage);
+
+      fetch("/api/city-and-airport-search/london")
+      .then(response => response.json())
+      .then(data => console.log(data))
   }, []);
+
+
 
   return (
     <>
       <div style={{ textAlign: 'center' }}>
         <h1>Welcome to travel-mate!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-          alt="Nx - Smart, Fast and Extensible Build System"
-        />
+       
       </div>
       <div>{m.message}</div>
     </>
